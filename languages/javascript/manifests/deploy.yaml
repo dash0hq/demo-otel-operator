@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-node
+  name: hello-node
+  namespace: default
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-node
+  template:
+    metadata:
+      labels:
+        app: hello-node
+      annotations:
+        instrumentation.opentelemetry.io/inject-nodejs: "opentelemetry/instrumentation"
+    spec:
+      containers:
+      - image: hello-node:v1
+        name: hello-node
+        imagePullPolicy: Never
+

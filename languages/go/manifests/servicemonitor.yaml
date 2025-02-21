@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: hello-go
+  namespace: default
+  labels:
+    app: hello-go
+spec:
+  selector:
+    matchLabels:
+      app: hello-go
+  namespaceSelector:
+    matchNames:
+    - default
+  endpoints:
+  - port: http
+    interval: 15s

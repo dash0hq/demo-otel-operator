@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-java
+  name: hello-java
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-java
+  template:
+    metadata:
+      labels:
+        app: hello-java
+      annotations:
+        instrumentation.opentelemetry.io/inject-java: "opentelemetry/instrumentation"
+    spec:
+      containers:
+      - image: hello-java:v1
+        name: hello-java
+        imagePullPolicy: Never
+

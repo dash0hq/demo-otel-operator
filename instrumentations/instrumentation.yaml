@@ -1,0 +1,32 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: Instrumentation
+metadata:
+  name: instrumentation
+  namespace: opentelemetry
+spec:
+  exporter:
+    endpoint: http://otel-collector.opentelemetry.svc.cluster.local:4317
+  propagators:
+    - tracecontext
+    - baggage
+  sampler:
+    type: parentbased_traceidratio
+    argument: "1"
+  go:
+    env:
+    - name: OTEL_EXPORTER_OTLP_PROTOCOL
+      value: "http"
+    - name: OTEL_EXPORTER_OTLP_ENDPOINT
+      value: "http://otel-collector.opentelemetry.svc.cluster.local:4318"
+  dotnet:
+    env:
+    - name: OTEL_EXPORTER_OTLP_PROTOCOL
+      value: "http"
+    - name: OTEL_EXPORTER_OTLP_ENDPOINT
+      value: "http://otel-collector.opentelemetry.svc.cluster.local:4318"
+  python:
+    env:
+    - name: OTEL_EXPORTER_OTLP_PROTOCOL
+      value: "http/protobuf"
+    - name: OTEL_EXPORTER_OTLP_ENDPOINT
+      value: "http://otel-collector.opentelemetry.svc.cluster.local:4318"

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-python
+  name: hello-python
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-python
+  template:
+    metadata:
+      labels:
+        app: hello-python
+      annotations:
+        instrumentation.opentelemetry.io/inject-python: "opentelemetry/instrumentation"
+    spec:
+      containers:
+      - image: hello-python:v1
+        name: hello-python
+        imagePullPolicy: Never
+

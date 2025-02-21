@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-go
+  name: hello-go
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-go
+  template:
+    metadata:
+      labels:
+        app: hello-go
+      annotations:
+        instrumentation.opentelemetry.io/inject-go: "opentelemetry/instrumentation"
+        instrumentation.opentelemetry.io/otel-go-auto-target-exe: '/hello'
+    spec:
+      containers:
+      - image: hello-go:v1
+        name: hello-go
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
+          name: http
+

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-dotnet
+  name: hello-dotnet
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-dotnet
+  template:
+    metadata:
+      labels:
+        app: hello-dotnet
+      annotations:
+        instrumentation.opentelemetry.io/inject-dotnet: "opentelemetry/instrumentation"
+    spec:
+      containers:
+      - image: hello-dotnet:v1
+        name: hello-dotnet
+        imagePullPolicy: Never
+
