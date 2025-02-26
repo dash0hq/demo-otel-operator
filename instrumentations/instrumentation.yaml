@@ -10,8 +10,9 @@ spec:
     - tracecontext
     - baggage
   sampler:
-    type: parentbased_traceidratio
-    argument: "1"
+    type: always_on
+  resource:
+    addK8sUIDAttributes: true
   go:
     env:
     - name: OTEL_EXPORTER_OTLP_PROTOCOL
